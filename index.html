@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Mood Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">🌸 Daily Mood Tracker</div>
+    <ul id="navLinks">
+      <li><a href="#" onclick="showSection('home')">Home</a></li>
+      <li><a href="#" onclick="showSection('about')">About</a></li>
+      <li><a href="#" onclick="showSection('login')">Login</a></li>
+      <li><a href="#" onclick="showSection('signup')">Sign Up</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home" class="active">
+    <h1>Welcome to Daily Mood Tracker 🌸</h1>
+    <p>
+      Life can feel overwhelming, but every emotion you experience matters...
+    </p>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about-container">
+    <h2>About Us 🌸</h2>
+    <p class="about-intro">
+      The <strong>Daily Mood Tracker</strong> was created by students...
+    </p>
+
+    <div class="team">
+      <div class="member">
+        <img src="rose.jpg" alt="Creator 1">
+        <h3>Mary Rose D. Montañez</h3>
+        <p>Designer 🌷<br>Helps with design ideas...</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/maryrose.montanez.90/" target="_blank">🌐 Facebook</a> |
+          <a href="https://www.instagram.com/whoslolmeng/" target="_blank">📸 Instagram</a>
+        </div>
+      </div>
+
+      <div class="member">
+        <img src="sirrah.jpg" alt="Creator 2">
+        <h3>Sirrah B. Sinahon</h3>
+        <p>Programmer 🌙<br>Builds and connects features...</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/iwannakmseveryday/" target="_blank">🌐 Facebook</a> |
+          <a href="https://www.instagram.com/319sx/" target="_blank">📸 Instagram</a>
+        </div>
+      </div>
+
+      <div class="member">
+        <img src="jolly.jpg" alt="Creator 3">
+        <h3>Jolly Fe R. Cacerez</h3>
+        <p>Designer 🌼<br>Creates the layout...</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/share/1B4gTkDgG7/" target="_blank">🌐 Facebook</a> |
+          <a href="https://www.instagram.com/jx.llyfxshh/" target="_blank">📸 Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGIN -->
+  <section id="login">
+    <div class="form-container">
+      <h2>🔐 Login</h2>
+      <input type="text" id="loginUser" placeholder="Username">
+      <input type="password" id="loginPass" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <p>No account? <a href="#" onclick="showSection('signup')">Sign up here</a></p>
+    </div>
+  </section>
+
+  <!-- SIGNUP -->
+  <section id="signup">
+    <div class="form-container">
+      <h2>📝 Sign Up</h2>
+      <input type="text" id="signupUser" placeholder="Create username">
+      <input type="password" id="signupPass" placeholder="Create password">
+      <button onclick="signup()">Sign Up</button>
+      <p>Already have an account? <a href="#" onclick="showSection('login')">Login here</a></p>
+    </div>
+  </section>
+
+  <!-- MOOD TRACKER -->
+  <section id="mood">
+    <div class="container">
+      <h2>🌼 Mood Tracker & Vent Journal</h2>
+      <div class="emoji-list">
+        <span class="emoji">😊</span>
+        <span class="emoji">😐</span>
+        <span class="emoji">😢</span>
+        <span class="emoji">😡</span>
+        <span class="emoji">😍</span>
+        <span class="emoji">😴</span>
+      </div>
+      <textarea id="entryText" placeholder="Vent out your thoughts..."></textarea>
+      <button id="addBtn">Add Entry</button>
+      <div id="entries"></div>
+    </div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section id="settings">
+    <div class="container">
+      <h2>⚙️ Settings</h2>
+      <p>Logged in as: <strong id="loggedUser"></strong></p>
+      <button id="clearAllBtn">Clear All Entries</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

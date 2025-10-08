@@ -1,0 +1,312 @@
+/* Example — start from here */
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #f4e3f4, #e7b5b5, #f9f9f9);
+    color: #000;
+    transition: background 0.8s ease;
+  }
+
+  /* NAVIGATION BAR */
+  nav {
+    background: rgba(40, 40, 60, 0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+  }
+
+  nav .logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffc0cb;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav ul li a {
+    color: #e4e4e4;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: all 0.4s ease;
+    position: relative;
+  }
+
+  nav ul li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #ff8fab, #ffc8dd);
+    transition: 0.3s;
+    border-radius: 2px;
+  }
+
+  nav ul li a:hover::before {
+    width: 100%;
+  }
+
+  nav ul li a:hover {
+    color: #fff;
+    text-shadow: 0 0 8px #ffb6c1;
+  }
+
+  /* SECTIONS */
+  section {
+    display: none;
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  section.active {
+    display: block;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  /* FORM CONTAINERS */
+  .form-container {
+    background-color: rgba(60, 60, 80, 0.9);
+    width: 360px;
+    margin: 80px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    backdrop-filter: blur(6px);
+    color: white;
+  }
+
+  .form-container h2 {
+    color: #ffc8dd;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
+    background: #4b4b63;
+    color: #fff;
+  }
+
+  button {
+    background: linear-gradient(45deg, #ff8fab, #ffc8dd);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff8fab;
+  }
+
+  /* SIGNUP/LOGIN LINKS */
+  .form-container a {
+    color: #ffc8dd;
+    font-weight: 600;
+    text-decoration: underline;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .form-container a:hover {
+    color: #fff;
+    text-shadow: 0 0 8px #ffb6c1;
+  }
+
+  /* MOOD TRACKER & SETTINGS CONTAINERS */
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: rgba(60, 60, 80, 0.95);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    color: white;
+  }
+
+  .emoji-list {
+    text-align: center;
+    font-size: 28px;
+    cursor: pointer;
+  }
+
+  .emoji {
+    margin: 0 6px;
+    transition: transform 0.2s;
+  }
+
+  .emoji:hover {
+    transform: scale(1.3);
+  }
+
+  textarea {
+    width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    padding: 10px;
+    border: none;
+    background: #4b4b63;
+    color: white;
+    margin-top: 10px;
+    resize: none;
+  }
+
+  .entry {
+    background: rgba(80, 80, 110, 0.9);
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    position: relative;
+    text-align: left;
+  }
+
+  .deleteBtn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #ff4d6d;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    padding: 4px 6px;
+    cursor: pointer;
+  }
+
+  .deleteBtn:hover {
+    background: #c1121f;
+  }
+
+  /* HOME */
+  #home h1 {
+    font-size: 2.4em;
+    color: #000;
+  }
+
+  #home p {
+    max-width: 700px;
+    margin: 20px auto;
+    line-height: 1.7;
+    font-size: 1.1em;
+    color: #000;
+  }
+
+  /* ABOUT SECTION */
+  .about-container {
+    text-align: center;
+    color: #f8eaf5;
+    background: linear-gradient(145deg, #4a3b54, #5c4a66, #7a5b80);
+    padding: 60px 20px;
+    border-radius: 20px;
+    margin: 40px auto;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+
+  .about-container h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #ffd6ec;
+    letter-spacing: 1px;
+  }
+
+  .about-intro {
+    font-size: 1.1em;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    color: #f4d1ef;
+  }
+
+  .team {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .member {
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    padding: 20px;
+    width: 250px;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .member:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .member img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #ffd6ec;
+    object-fit: cover;
+  }
+
+  .member h3 {
+    color: #ffe0f0;
+    margin-bottom: 8px;
+  }
+
+  .member p {
+    font-size: 0.95em;
+    color: #f6e7f3;
+    line-height: 1.5;
+  }
+
+  /* 🌸 SOCIAL LINKS - Simple & Elegant */
+.social-links {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.social-links a {
+  color: #fce1eb; /* soft pink */
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 8px;
+  font-size: 0.8em;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+
+/* Hover effect - soft glow and underline */
+.social-links a:hover {
+  color: #ffe6f2; /* lighter pink on hover */
+  border-bottom: 2px solid #ffc8dd;
+  text-shadow: 0 0 6px rgba(255, 200, 221, 0.8);
+  transform: translateY(-2px);
+}
