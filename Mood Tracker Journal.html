@@ -1,0 +1,502 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mood Tracker Journal | MVC Pattern</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f4e3f4, #e7b5b5, #f9f9f9);
+      color: #000;
+      transition: background 0.8s ease;
+    }
+
+    /* NAVIGATION BAR */
+    nav {
+      background: rgba(40, 40, 60, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.5);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    nav .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ffc0cb;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: #e4e4e4;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    nav ul li a::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #ff8fab, #ffc8dd);
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+
+    nav ul li a:hover::before {
+      width: 100%;
+    }
+
+    nav ul li a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px #ffb6c1;
+    }
+
+    /* SECTIONS */
+    section {
+      display: none;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    section.active {
+      display: block;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* FORM CONTAINERS */
+    .form-container {
+      background-color: rgba(60, 60, 80, 0.9);
+      width: 360px;
+      margin: 80px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      backdrop-filter: blur(6px);
+      color: white;
+    }
+
+    .form-container h2 {
+      color: #ffc8dd;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+      background: #4b4b63;
+      color: #fff;
+    }
+
+    button {
+      background: linear-gradient(45deg, #ff8fab, #ffc8dd);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff8fab;
+    }
+
+    /* SIGNUP/LOGIN LINKS */
+    .form-container a {
+      color: #ffc8dd;
+      font-weight: 600;
+      text-decoration: underline;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .form-container a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px #ffb6c1;
+    }
+
+    /* MOOD TRACKER & SETTINGS CONTAINERS */
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: rgba(60, 60, 80, 0.95);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      color: white;
+    }
+
+    .emoji-list {
+      text-align: center;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .emoji {
+      margin: 0 6px;
+      transition: transform 0.2s;
+    }
+
+    .emoji:hover {
+      transform: scale(1.3);
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      border-radius: 8px;
+      padding: 10px;
+      border: none;
+      background: #4b4b63;
+      color: white;
+      margin-top: 10px;
+      resize: none;
+    }
+
+    .entry {
+      background: rgba(80, 80, 110, 0.9);
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      position: relative;
+      text-align: left;
+    }
+
+    .deleteBtn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #ff4d6d;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      padding: 4px 6px;
+      cursor: pointer;
+    }
+
+    .deleteBtn:hover {
+      background: #c1121f;
+    }
+
+    /* HOME */
+    #home h1 {
+      font-size: 2.4em;
+      color: #000;
+    }
+
+    #home p {
+      max-width: 700px;
+      margin: 20px auto;
+      line-height: 1.7;
+      font-size: 1.1em;
+      color: #000;
+    }
+
+    /* ABOUT SECTION */
+    .about-container {
+      text-align: center;
+      color: #f8eaf5;
+      background: linear-gradient(145deg, #4a3b54, #5c4a66, #7a5b80);
+      padding: 60px 20px;
+      border-radius: 20px;
+      margin: 40px auto;
+      width: 90%;
+      max-width: 1000px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .about-container h2 {
+      font-size: 2em;
+      margin-bottom: 15px;
+      color: #ffd6ec;
+      letter-spacing: 1px;
+    }
+
+    .about-intro {
+      font-size: 1.1em;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      color: #f4d1ef;
+    }
+
+    .team {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .member {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 20px;
+      padding: 20px;
+      width: 250px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .member:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      border: 3px solid #ffd6ec;
+      object-fit: cover;
+    }
+
+    .member h3 {
+      color: #ffe0f0;
+      margin-bottom: 8px;
+    }
+
+    .member p {
+      font-size: 0.95em;
+      color: #f6e7f3;
+      line-height: 1.5;
+    }
+  </style>
+  </head>
+  <body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">🌸 Mood Tracker Journal</div>
+    <ul id="navLinks">
+      <li><a href="#" onclick="showSection('home')">Home</a></li>
+      <li><a href="#" onclick="showSection('about')">About</a></li>
+      <li><a href="#" onclick="showSection('login')">Login</a></li>
+      <li><a href="#" onclick="showSection('signup')">Sign Up</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home" class="active">
+    <h1>Welcome to Mood Tracker Journal 🌸</h1>
+    <p>
+      Life can feel overwhelming, but every emotion you experience matters.
+      This is your safe space — a peaceful corner where you can express how you truly feel.
+      Use this Mood Tracker Journal to reflect on your thoughts and understand yourself better.
+      Whether you're feeling happy, tired, or somewhere in between, every mood is valid. 🌙💖
+    </p>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about-container">
+    <h2>About Us 🌸</h2>
+    <p class="about-intro">
+      The <strong>Mood Tracker Journal</strong> was created by students who aim to help individuals 
+      reflect on their emotions and mental well-being through journaling.
+      Our goal is to create a safe, calming, and expressive space for everyone to track their moods and feelings freely.
+    </p>
+
+    <div class="team">
+      <div class="member">
+        <img src="C:\Users\Lorelyn Sinahon\Desktop\HCI FINAL PROJECT\rose.jpg" alt="Creator 1">
+        <h3>Mary Rose D. Montañez</h3>
+        <p>Designer 🌷<br>Helps with design ideas and keeps the website simple and relaxing.</p>
+      </div>
+
+      <div class="member">
+        <img src="C:\Users\Lorelyn Sinahon\Desktop\HCI FINAL PROJECT\sirrah.jpg" alt="Creator 2">
+        <h3>Sirrah B. Sinahon</h3>
+        <p>Programmer 🌙<br>Builds and connects the features that make the site work smoothly.</p>
+      </div>
+
+      <div class="member">
+        <img src="C:\Users\Lorelyn Sinahon\Desktop\HCI FINAL PROJECT\jf.jpg" alt="Creator 3">
+        <h3>Jolly Fe R. Cacerez</h3>
+        <p>Designer 🌼<br>Creates the layout and style for a soft and peaceful look.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGIN -->
+  <section id="login">
+    <div class="form-container">
+      <h2>🔐 Login</h2>
+      <input type="text" id="loginUser" placeholder="Username">
+      <input type="password" id="loginPass" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <p>No account? <a href="#" onclick="showSection('signup')">Sign up here</a></p>
+    </div>
+  </section>
+
+  <!-- SIGNUP -->
+  <section id="signup">
+    <div class="form-container">
+      <h2>📝 Sign Up</h2>
+      <input type="text" id="signupUser" placeholder="Create username">
+      <input type="password" id="signupPass" placeholder="Create password">
+      <button onclick="signup()">Sign Up</button>
+      <p>Already have an account? <a href="#" onclick="showSection('login')">Login here</a></p>
+    </div>
+  </section>
+
+  <!-- MOOD TRACKER -->
+  <section id="mood">
+    <div class="container">
+      <h2>🌼 Mood Tracker & Vent Journal</h2>
+      <div class="emoji-list">
+        <span class="emoji">😊</span>
+        <span class="emoji">😐</span>
+        <span class="emoji">😢</span>
+        <span class="emoji">😡</span>
+        <span class="emoji">😍</span>
+        <span class="emoji">😴</span>
+      </div>
+      <textarea id="entryText" placeholder="Vent out your thoughts..."></textarea>
+      <button id="addBtn">Add Entry</button>
+      <div id="entries"></div>
+    </div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section id="settings">
+    <div class="container">
+      <h2>⚙️ Settings</h2>
+      <p>Logged in as: <strong id="loggedUser"></strong></p>
+      <button id="clearAllBtn">Clear All Entries</button>
+    </div>
+  </section>
+
+  <script>
+    let currentUser = localStorage.getItem("loggedUser") || null;
+    let currentMood = "😊";
+
+    const navLinks = document.getElementById("navLinks");
+    const sections = document.querySelectorAll("section");
+
+    function showSection(id) {
+      sections.forEach(sec => sec.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      if (id === "mood" && currentUser) loadEntries();
+    }
+
+    function signup() {
+      const u = document.getElementById("signupUser").value;
+      const p = document.getElementById("signupPass").value;
+      if(!u || !p) return alert("Please fill all fields!");
+      if(localStorage.getItem(u+"_pass")) return alert("Username already exists!");
+      localStorage.setItem(u+"_pass", p);
+      alert("Account created successfully!");
+      showSection('login');
+    }
+
+    function login() {
+      const u = document.getElementById("loginUser").value;
+      const p = document.getElementById("loginPass").value;
+      if(localStorage.getItem(u+"_pass") === p) {
+        currentUser = u;
+        localStorage.setItem("loggedUser", u);
+        updateNav();
+        document.getElementById("loggedUser").textContent = u;
+        showSection("mood"); // ✅ Direct to mood tracker after login
+      } else {
+        alert("Invalid username or password!");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedUser");
+      currentUser = null;
+      updateNav();
+      showSection("home");
+    }
+
+    function updateNav() {
+      if(currentUser) {
+        navLinks.innerHTML = `
+          <li><a href="#" onclick="showSection('home')">Home</a></li>
+          <li><a href="#" onclick="showSection('mood')">Mood Tracker</a></li>
+          <li><a href="#" onclick="showSection('settings')">Settings</a></li>
+          <li><a href="#" onclick="logout()">Logout</a></li>`;
+      } else {
+        navLinks.innerHTML = `
+          <li><a href="#" onclick="showSection('home')">Home</a></li>
+          <li><a href="#" onclick="showSection('about')">About</a></li>
+          <li><a href="#" onclick="showSection('login')">Login</a></li>
+          <li><a href="#" onclick="showSection('signup')">Sign Up</a></li>`;
+      }
+    }
+
+    function loadEntries() {
+      const entries = JSON.parse(localStorage.getItem(currentUser+"_entries")) || [];
+      const div = document.getElementById("entries");
+      div.innerHTML = entries.map(e => `
+        <div class="entry">${e.mood} <small>(${e.date})</small><br>${e.text}
+          <button class="deleteBtn" onclick="deleteEntry(${e.id})">🗑</button>
+        </div>`).join("");
+    }
+
+    function deleteEntry(id) {
+      let entries = JSON.parse(localStorage.getItem(currentUser+"_entries")) || [];
+      entries = entries.filter(e => e.id !== id);
+      localStorage.setItem(currentUser+"_entries", JSON.stringify(entries));
+      loadEntries();
+    }
+
+    document.addEventListener("click", e=>{
+      if(e.target.classList.contains("emoji")) currentMood = e.target.textContent;
+    });
+
+    document.getElementById("addBtn").addEventListener("click", ()=>{
+      if(!currentUser) return alert("Please login first!");
+      const text = document.getElementById("entryText").value;
+      if(!text.trim()) return alert("Write something!");
+      const newEntry = { id: Date.now(), mood: currentMood, text, date: new Date().toLocaleString() };
+      const entries = JSON.parse(localStorage.getItem(currentUser+"_entries")) || [];
+      entries.push(newEntry);
+      localStorage.setItem(currentUser+"_entries", JSON.stringify(entries));
+      document.getElementById("entryText").value = "";
+      loadEntries();
+    });
+
+    document.getElementById("clearAllBtn").addEventListener("click", ()=>{
+      if(confirm("Delete all entries?")) {
+        localStorage.removeItem(currentUser+"_entries");
+        loadEntries();
+      }
+    });
+
+    // Initialize
+    updateNav();
+    if(currentUser) loadEntries();
+  </script>
+  </body>
+  </html>
