@@ -203,19 +203,20 @@
     background: #c1121f;
   }
 
-  /* HOME */
-  #home h1 {
-    font-size: 2.4em;
-    color: #000;
-  }
+ #home {
+  padding: 60px 20px;
+  text-align: center;
+}
 
-  #home p {
-    max-width: 700px;
-    margin: 20px auto;
-    line-height: 1.7;
-    font-size: 1.1em;
-    color: #000;
-  }
+#home p {
+  max-width: 700px;
+  margin: 20px auto;
+  font-size: 1.2em;
+  line-height: 1.6;
+  white-space: normal;  /* Ensures long text wraps */
+  overflow: visible;    /* Prevents cut-off */
+}
+
 
   /* ABOUT SECTION */
   .about-container {
