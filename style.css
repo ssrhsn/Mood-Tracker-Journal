@@ -279,11 +279,12 @@
     margin-bottom: 8px;
   }
 
-  .member p {
-    font-size: 0.95em;
-    color: #f6e7f3;
-    line-height: 1.5;
-  }
+.member p {
+  font-family: "Poppins", sans-serif;
+  letter-spacing: normal;
+}
+
+
 
   /* 🌸 SOCIAL LINKS - Simple & Elegant */
 .social-links {
