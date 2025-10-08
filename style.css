@@ -203,67 +203,76 @@
     background: #c1121f;
   }
 
- #home {
-  padding: 60px 20px;
-  text-align: center;
-}
+  /* HOME */
+  #home h1 {
+    font-size: 2.4em;
+    color: #000;
+  }
 
-#home p {
-  max-width: 700px;
-  margin: 20px auto;
-  font-size: 1.2em;
-  line-height: 1.6;
-  white-space: normal;  /* Ensures long text wraps */
-  overflow: visible;    /* Prevents cut-off */
-}
-
+  #home p {
+    max-width: 700px;
+    margin: 20px auto;
+    line-height: 1.7;
+    font-size: 1.1em;
+    color: #000;
+  }
 
   /* ABOUT SECTION */
   .about-container {
-  padding: 60px 20px;
-  text-align: center;
-  background-color: #fff0f5; /* Light background for contrast */
-  overflow: visible;
-}
+    text-align: center;
+    color: #f8eaf5;
+    background: linear-gradient(145deg, #4a3b54, #5c4a66, #7a5b80);
+    padding: 60px 20px;
+    border-radius: 20px;
+    margin: 40px auto;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
 
- .about-container p.about-intro {
-  max-width: 800px;
-  margin: 0 auto 40px;
-  font-size: 1.1em;
-  line-height: 1.6;
-  white-space: normal;
-  overflow-wrap: break-word;
-}
+  .about-container h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #ffd6ec;
+    letter-spacing: 1px;
+  }
+
+  .about-intro {
+    font-size: 1.1em;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    color: #f4d1ef;
+  }
 
   .team {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-}
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+  }
 
-.member {
-  width: 280px;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-.member img {
-  width: 100%;
-  height: auto;
-  border-radius: 50%;
-  margin-bottom: 15px;
-}
+  .member {
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    padding: 20px;
+    width: 250px;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
 
   .member:hover {
     transform: translateY(-8px);
     background: rgba(255, 255, 255, 0.12);
   }
 
+  .member img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #ffd6ec;
+    object-fit: cover;
+  }
 
   .member h3 {
     color: #ffe0f0;
